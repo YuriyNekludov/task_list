@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/authentication?currentSchema=authentication_schema
+    username: auth_user
+    password: auth_password
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+    default-schema: authentication_schema
+  jpa:
+    hibernate:
+      ddl-auto: validate
+security:
+  jwt:
+    secret: YXNkYXNkZnNmZGc7bGRmaGdrZGZnaGI7bGtzZCxnZm5zbEtKU0RGSEVSS0dOQlNERkdERkhMOydERkdLSEZWREInOw==
+    access: 10
+    refresh: 30

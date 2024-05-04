@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+<changeSet id="1" author="yuriy_n">
+    <insert tableName="t_users">
+        <column name="c_username" value="j.dewar"/>
+        <column name="c_email" value="j.dewar@example.com"/>
+        <column name="c_password" value="$2a$12$PehUr.BOZJWDHJanb/tfsefMAhRlXQ2wpjtuj2pBCoLZ3uSMaJtUa"/>
+    </insert>
+    <insert tableName="t_users">
+        <column name="c_username" value="j.daniels"/>
+        <column name="c_email" value="j.daniels@gmail.com"/>
+        <column name="c_password" value="$2a$12$ntVKkujCbb4ad6kR5WELtuCnM0G6j0lg0IVu7sidLo2m89sU05Hri"/>
+    </insert>
+    <insert tableName="t_users">
+        <column name="c_username" value="yuriy.manager"/>
+        <column name="c_email" value="yuriy.manager@gmail.com"/>
+        <column name="c_password" value="$2a$12$9AMd0hOQgmtlBmYYYf1VG.2jdy5vX9q0sgkj1oI8YQ2gSLCJVZ5re"/>
+    </insert>
+</changeSet>
+</databaseChangeLog>

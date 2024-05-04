@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="1" author="yuriy_n">
+        <createTable tableName="t_users">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="c_username" type="varchar(64)">
+                <constraints nullable="false" unique="true" checkConstraint="LENGTH(TRIM(c_username)) > 3"/>
+            </column>
+            <column name="c_email" type="varchar(128)">
+                <constraints nullable="false" unique="true" checkConstraint="LENGTH(TRIM(c_email)) > 6"/>
+            </column>
+            <column name="c_password" type="varchar(255)">
+                <constraints nullable="false" checkConstraint="LENGTH(TRIM(c_password)) >= 3"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
