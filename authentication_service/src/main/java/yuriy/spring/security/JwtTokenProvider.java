@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import yuriy.spring.config.prop.JwtProperties;
 import yuriy.spring.dto.jwt_entity.JwtResponse;
 import yuriy.spring.entity.Authority;
@@ -69,7 +70,7 @@ public class JwtTokenProvider {
 
     public JwtResponse refreshUserTokens(String refreshToken) {
         if (isInvalidToken(refreshToken)) {
-            throw new AccessDeniedException("Invalid refresh token");
+            throw new AccessDeniedException("authentication.errors.token.refresh_token_invalid");
         }
         var userId = Long.valueOf(TokenParser.getUserIdFromToken(refreshToken, key));
         var user = userService.getById(userId);
@@ -82,6 +83,7 @@ public class JwtTokenProvider {
                 .build();
     }
 
+    @Transactional(readOnly = true)
     public Authentication getAuthentication(String token) {
         var username = TokenParser.getUsernameFromToken(token, key);
         var userDetails = userDetailsService.loadUserByUsername(username);

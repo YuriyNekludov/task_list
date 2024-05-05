@@ -56,7 +56,7 @@ public class SecurityConfiguration {
                         .accessDeniedHandler(
                                 (request, response, authException) -> {
                                   response.setStatus(HttpStatus.FORBIDDEN.value());
-                                  response.getWriter().write("Unauthorized.");
+                                  response.getWriter().write("errors.401.unauthorized");
                                 }))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()

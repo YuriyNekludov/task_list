@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="1" author="yuriy_n">
+        <createTable tableName="t_tasks">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="c_owner_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="c_title" type="varchar(64)">
+                <constraints nullable="false" checkConstraint="LENGTH(TRIM(c_title)) > 3"/>
+            </column>
+            <column name="c_description" type="varchar(128)">
+                <constraints nullable="false" checkConstraint="LENGTH(TRIM(c_description)) > 5"/>
+            </column>
+            <column name="c_status" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="c_completed_at" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint tableName="t_tasks" columnNames="id, c_owner_id" constraintName="uk_task_owner_id"/>
+    </changeSet>
+</databaseChangeLog>

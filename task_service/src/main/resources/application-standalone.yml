@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/task_db?currentSchema=task_schema
+    username: task_user
+    password: task_password
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+    default-schema: task_schema
+  jpa:
+    hibernate:
+      ddl-auto: validate
+jwt:
+  secret: YXNkYXNkZnNmZGc7bGRmaGdrZGZnaGI7bGtzZCxnZm5zbEtKU0RGSEVSS0dOQlNERkdERkhMOydERkdLSEZWREInOw==
+server:
+  port: 8081

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="1" author="yuriy_n">
+        <insert tableName="t_tasks">
+            <column name="c_owner_id" value="1"/>
+            <column name="c_title" value="some task"/>
+            <column name="c_description" value="TODO something"/>
+            <column name="c_status" value="TODO"/>
+        </insert>
+        <insert tableName="t_tasks">
+            <column name="c_owner_id" value="1"/>
+            <column name="c_title" value="completed task"/>
+            <column name="c_description" value="something actions completed"/>
+            <column name="c_status" value="COMPLETED"/>
+            <column name="c_completed_at" value="2024-05-05"/>
+        </insert>
+        <insert tableName="t_tasks">
+            <column name="c_owner_id" value="2"/>
+            <column name="c_title" value="some task"/>
+            <column name="c_description" value="TODO something"/>
+            <column name="c_status" value="TODO"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

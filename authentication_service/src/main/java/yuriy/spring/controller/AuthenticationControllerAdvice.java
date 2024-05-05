@@ -5,6 +5,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -33,6 +34,24 @@ public class AuthenticationControllerAdvice {
                         .map(ObjectError::getDefaultMessage)
                         .toList());
         return ResponseEntity.badRequest().body(problemDetail);
+    }
+    
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ProblemDetail> handleAccessDeniedException(AccessDeniedException ex, Locale locale) {
+        var problemDetail = ProblemDetail
+                .forStatusAndDetail(HttpStatus.FORBIDDEN,
+                        messageSource.getMessage(
+                          "errors.401.unauthorized",
+                          new Object[0],
+                          locale
+                        ));
+        problemDetail.setProperty("errors",
+                messageSource.getMessage(
+                        ex.getMessage(),
+                        new Object[0],
+                        locale
+                ));
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(problemDetail);
     }
 
     @ExceptionHandler({DuplicateUserAttributesException.class,
