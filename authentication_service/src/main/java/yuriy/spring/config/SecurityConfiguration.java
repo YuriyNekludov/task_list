@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -20,6 +19,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import yuriy.spring.security.JwtTokenFilter;
 import yuriy.spring.security.JwtTokenProvider;
+import yuriy.spring.security.custom_handler.CustomAccessDeniedHandler;
+import yuriy.spring.security.custom_handler.CustomAuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity
@@ -27,6 +28,8 @@ import yuriy.spring.security.JwtTokenProvider;
 public class SecurityConfiguration {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+    private final CustomAccessDeniedHandler accessDeniedHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -48,21 +51,15 @@ public class SecurityConfiguration {
                 .httpBasic(HttpBasicConfigurer::disable)
                 .anonymous(AnonymousConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .exceptionHandling(eh -> eh.authenticationEntryPoint(
-                        (request, response, authException) -> {
-                            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                            response.getWriter().write("Unauthorized.");
-                        })
-                        .accessDeniedHandler(
-                                (request, response, authException) -> {
-                                  response.setStatus(HttpStatus.FORBIDDEN.value());
-                                  response.getWriter().write("errors.401.unauthorized");
-                                }))
+                .exceptionHandling(eh -> eh
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .anyRequest().hasAuthority("ROLE_USER"))
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class)
+                .logout(Customizer.withDefaults())
                 .build();
     }
 }

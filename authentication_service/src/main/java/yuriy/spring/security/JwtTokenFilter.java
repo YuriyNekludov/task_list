@@ -23,7 +23,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             bearerToken = bearerToken.substring(7);
         }
-        if (bearerToken != null && jwtTokenProvider.isInvalidToken(bearerToken)) {
+        if (bearerToken != null && !jwtTokenProvider.isInvalidToken(bearerToken)) {
             var authentication = jwtTokenProvider.getAuthentication(bearerToken);
             if (authentication != null) {
                 SecurityContextHolder.getContext().setAuthentication(authentication);

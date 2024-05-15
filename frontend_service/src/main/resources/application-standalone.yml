@@ -1,0 +1,6 @@
+server:
+  port: 8082
+service:
+  config:
+    base_auth_url: http://localhost:8080
+    base_task_url: http://localhost:8081

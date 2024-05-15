@@ -56,4 +56,11 @@ public class TaskController {
         taskService.delete(taskId, ownerId);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/done")
+    public ResponseEntity<Void> completeTask(@PathVariable Long taskId,
+                                             @ModelAttribute("ownerId") Long ownerId) {
+        taskService.completeTask(taskId, ownerId);
+        return ResponseEntity.noContent().build();
+    }
 }

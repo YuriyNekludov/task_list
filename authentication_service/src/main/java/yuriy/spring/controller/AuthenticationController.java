@@ -38,7 +38,7 @@ public class AuthenticationController {
             }
         }
         var user = authenticationService.register(userDto);
-        return ResponseEntity.ok().body(user);
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("/refresh")

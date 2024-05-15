@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+<h1>Регистрация</h1>
+<div data-th-if="${errors}">
+    <h3>Допущены ошибки:</h3>
+    <ul>
+        <li style="color: red" data-th-each="error : ${errors}" data-th-text="${error}"/>
+    </ul>
+</div>
+<form method="post" data-th-action="@{/registration}">
+    <label>
+        Имя пользователя:<br>
+        <input type="text" name="username" data-th-value="${userDto?.username}">
+    </label><br>
+    <label>
+        Электронная почта:<br>
+        <input type="text" name="email" data-th-value="${userDto?.email}">
+    </label><br>
+    <label>
+        Пароль:<br>
+        <input type="password" name="password">
+    </label><br>
+    <label>
+        Подтвердите пароль:<br>
+        <input type="password" name="passwordConfirmation">
+    </label><br>
+    <button type="submit">Зарегистрироваться</button>
+</form>
+<a href="/login">Войти</a>
+</body>
+</html>

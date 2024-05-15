@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body>
+<h1>Авторизация</h1>
+<div data-th-if="${error}">
+    <h3 style="color: red" data-th-text="${'Неверное имя пользователя или пароль'}"/>
+</div>
+<form method="post" data-th-action="@{/login}">
+    <label>
+        Имя пользователя:<br>
+        <input type="text" name="username" data-th-value="${userDto?.username}">
+    </label><br>
+    <label>
+        Пароль:<br>
+        <input type="text" name="password">
+    </label><br>
+    <button type="submit">Войти</button>
+</form>
+<a href="/registration">Зарегистрироваться</a>
+</body>
+</html>

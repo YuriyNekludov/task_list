@@ -5,6 +5,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import yuriy.spring.dto.jwt_entity.JwtRequest;
 import yuriy.spring.dto.jwt_entity.JwtResponse;
 import yuriy.spring.dto.user.UserRegistrationDto;
@@ -26,6 +27,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public JwtResponse login(JwtRequest loginRequest) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password()));
@@ -51,7 +53,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public JwtResponse refresh(String token) {
-        return jwtTokenProvider.refreshUserTokens(token);
+        return jwtTokenProvider.refreshUserAccessToken(token);
     }
 
     private boolean arePasswordsMismatching(UserRegistrationDto userDto) {

@@ -9,6 +9,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+    show-sql: true
 security:
   jwt:
     secret: YXNkYXNkZnNmZGc7bGRmaGdrZGZnaGI7bGtzZCxnZm5zbEtKU0RGSEVSS0dOQlNERkdERkhMOydERkdLSEZWREInOw==

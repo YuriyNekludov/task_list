@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задачи</title>
+</head>
+<body>
+<h1 data-th-text="${userInfo.username()} + ' Ваши задачи:'"></h1>
+<ul data-th-each="task : ${tasks}">
+    <li><strong>Название</strong>: <span data-th-text="${task.title}"></span></li>
+    <li><strong>Описание</strong>: <span data-th-text="${task.description}"></span></li>
+    <li><strong>Статус</strong>: <span data-th-text="${task.status}"></span></li>
+    <li data-th-if="${task.completedAt != null}"><strong>Завершено</strong>: <span
+            data-th-text="${task.completedAt}"></span></li>
+    <hr>
+</ul>
+</body>
+</html>

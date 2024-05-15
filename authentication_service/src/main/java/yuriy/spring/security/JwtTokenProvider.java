@@ -68,7 +68,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public JwtResponse refreshUserTokens(String refreshToken) {
+    public JwtResponse refreshUserAccessToken(String refreshToken) {
         if (isInvalidToken(refreshToken)) {
             throw new AccessDeniedException("authentication.errors.token.refresh_token_invalid");
         }
@@ -79,7 +79,7 @@ public class JwtTokenProvider {
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .accessToken(createAccessToken(user))
-                .refreshToken(createRefreshToken(user))
+                .refreshToken(refreshToken)
                 .build();
     }
 
